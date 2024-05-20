@@ -87,49 +87,57 @@ class LinkedList:
             size += 1
         return size
 
+    def reverse(self):
+        curr = self.head
+        prev = None
+        while curr:
+            temp = curr.next
+            curr.next = prev
+            prev = curr
+            curr = temp
+        self.head = prev
+
     def print(self):
         current_node = self.head
         while current_node:
-            print(current_node.data, end= " ")
+            print(current_node.data, end=" ")
             current_node = current_node.next
+        print()
 
 
+def merge_sort(list1, list2):
+    head = Node()
+    curr = head
+    while list1 and list2:
+        if list1.data <= list2.data:
+            curr.next = list1
+            list1 = list1.next
+        else:
+            curr.next = list2
+            list2 = list2.next
+        curr = curr.next
+    curr.next = list1 or list2
+    temp = head.next
+    while temp:
+        print(temp.data, end=" ")
+        temp = temp.next
+    print()
 
 
 def main():
     llist = LinkedList()
-
-    # add nodes to the linked list
-    llist.insert_at_end('a')
-    llist.insert_at_end('b')
-    llist.insert_at_begin('c')
-    llist.insert_at_end('d')
-    llist.insert_at_index('g', 2)
-
-    # print the linked list
-    print("Node Data")
+    llist.insert_at_end(0)
+    llist.insert_at_end(1)
+    llist.insert_at_end(4)
+    llist.insert_at_end(5)
+    llist2 = LinkedList()
+    llist2.insert_at_end(2)
+    llist2.insert_at_end(3)
     llist.print()
+    llist2.print()
+    merge_sort(llist.head, llist2.head)
 
-    # remove a nodes from the linked list
-    print("\nRemove First Node")
-    llist.remove_node(0)
-    print("Remove Last Node")
-    llist.remove_last_node()
-    print("Remove Node at Index 1")
-    llist.remove_node(1)
-
-    # print the linked list again
-    print("\nLinked list after removing a node:")
-    llist.print()
-
-    print("\nUpdate node Value")
-    llist.update_node('z', 0)
-    llist.print()
-
-    print("\nSize of linked list :", end=" ")
-    print(llist.size())
 
 
 if __name__ == '__main__':
     main()
-
